@@ -1,16 +1,16 @@
 import { fetchCompletions, fetchRequests } from "./dataAccess.js"
-import { SinkRepair } from "./SinkRepair.js"
-import { fetchPlumbers } from "./dataAccess.js"
+import { ClownCollege } from "./ClownCollege.js"
+import { fetchClowns } from "./dataAccess.js"
 
 export const mainContainer = document.querySelector("#container")
 
 const render = () => {
     fetchRequests()
-    .then(() => fetchPlumbers())
+    .then(() => fetchClowns())
     .then(() => fetchCompletions())
     .then(
         () => {
-            mainContainer.innerHTML = SinkRepair()
+            mainContainer.innerHTML = ClownCollege()
         }
     )
 }

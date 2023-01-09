@@ -4,7 +4,7 @@ import { mainContainer } from "./main.js"
 const applicationState = {
     requests:[],
     completions: [],
-    plumbers: []
+    clowns: []
 }
 
 const API = "http://localhost:8088"
@@ -20,13 +20,13 @@ export const fetchRequests = () => {
         )
 }
 
-export const fetchPlumbers = () => {
-    return fetch(`${API}/plumbers`)
+export const fetchClowns = () => {
+    return fetch(`${API}/clowns`)
     .then(response => response.json())
     .then(
-        (servicePlumbers) => {
+        (serviceClowns) => {
             // Store the external state in application state
-            applicationState.plumbers = servicePlumbers
+            applicationState.clowns = serviceClowns
         }
         )
     }
@@ -46,8 +46,8 @@ export const fetchCompletions = () => {
 export const getRequests = () => {
     return applicationState.requests.map(request => ({...request}))
 }
-export const getPlumbers = () => {
-    return applicationState.plumbers.map(plumber => ({...plumber}))
+export const getClowns = () => {
+    return applicationState.clowns.map(clown => ({...clown}))
 }
 
 

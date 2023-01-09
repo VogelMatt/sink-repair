@@ -1,24 +1,24 @@
 import { getRequests } from "./dataAccess.js"
 import { deleteRequest } from "./dataAccess.js"
-import { getPlumbers } from "./dataAccess.js"
+import { getClowns } from "./dataAccess.js"
 import { saveCompletions } from "./dataAccess.js"
 
 
 export const Requests = () => {
     const requests = getRequests()
-    const plumbers = getPlumbers()
+    const clowns = getClowns()
     let html = `
         <ul>
             ${requests.map(
                 (request) => {
                     return `
                             <li>
-                                ${request.description} needed at ${request.address}, my budget is ${request.budget} and i need it done by ${request.neededBy}
-                                <select class="plumbers" id="plumbers"><option value="">Choose</option>
+                                ${request.parentName} needed at ${request.address}, hours needed ${request.hoursBooked} with ${request.attendees} guests needed on ${request.date}
+                                <select class="clowns" id="clowns"><option value="">Choose</option>
                                         ${
-                                            plumbers.map(
-                                                plumber => {
-                                                    return `<option value="${request.id}--${plumber.id}">${plumber.name}</option>`
+                                            clowns.map(
+                                                clown => {
+                                                    return `<option value="${request.id}--${clown.id}">${clown.name}</option>`
                                                 }
                                             ).join("")
                                         }
@@ -52,26 +52,16 @@ mainContainer.addEventListener("click", click => {
 mainContainer.addEventListener(
     "change",
     (event) => {
-        if (event.target.id === "plumbers") {
-            const [requestId, plumberId] = event.target.value.split("--")
+        if (event.target.id === "clowns") {
+            const [requestId, clownId] = event.target.value.split("--")
 
-            /*
-                This object should have 3 properties
-                   1. requestId
-                   2. plumberId
-                   3. date_created
-            */
+          
            const completionRequest = {
                 requestId: requestId,
-                plumberId: plumberId,
+                clownId: clownId,
                 date_created: Date.now()       
            }
-
-            /*
-                Invoke the function that performs the POST request
-                to the `completions` resource for your API. Send the
-                completion object as a parameter.
-             */
+    
                 saveCompletions(completionRequest);
         }
     }
